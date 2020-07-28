@@ -87,7 +87,7 @@
     .clamp(true);
 
   const intervalDuration = 300;
-  $: bubbleSizes = tweened(new Array(20).fill(0).map(d => [0, 0]), {
+  let bubbleSizes = tweened(new Array(20).fill(0).map(d => [0, 0]), {
     duration: intervalDuration
   });
 
