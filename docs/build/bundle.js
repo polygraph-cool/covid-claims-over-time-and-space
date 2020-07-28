@@ -2,14 +2,14 @@
   var d = window.document
   var wsServerUrl = window.location.protocol
     + '//' + (window.location.host || 'localhost').split(':')[0]
-    + ':34765/';
+    + ':33440/';
   
   if (!window['__ROLLUP_PLUGIN_HOT_RUNTIME']) {
     var loaded = false;
     var callbacks = [];
     window['__ROLLUP_PLUGIN_HOT_RUNTIME'] = {
       host: null,
-      port: 34765,
+      port: 33440,
       ws: false,
       then: function(cb) {
         if (loaded) {
