@@ -1,0 +1,62 @@
+@import url("https://rsms.me/inter/inter.css");
+html {
+  --text-color: #1c2247;
+  --accent-dark: #5758bb;
+  --accent-medium: #9980fa;
+  --accent-light: #ffc312;
+  --accent-lighter: #f1f4f7;
+  --gray: #a4acb4;
+  --gray-light: #d9e1e9;
+  --gray-light: #ddd;
+  /* --gray-light: #b9b6ca; */
+  --gray-dark: #51658a;
+  --gray-dark: #292b2c;
+  --figure-font: "Inter", sans-serif;
+
+  font-family: var(--figure-font);
+  font-size: 1.1em;
+  line-height: 1.6em;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+h1 {
+  font-family: var(--heading-font);
+  font-size: 5rem;
+  line-height: 1.3em;
+  font-weight: 500;
+}
+
+h2 {
+  font-family: var(--heading-font);
+  font-size: 2.6em;
+  line-height: 1.5em;
+  font-weight: 500;
+  margin-bottom: 0.6em;
+}
+
+h6 {
+  font-size: 0.9em;
+  text-transform: uppercase;
+  font-family: var(--figure-font);
+  letter-spacing: 0.1em;
+  margin-bottom: 1em;
+}
+
+strong {
+  font-weight: 900;
+}
+
+p button {
+  font-family: Georgia, serif;
+}
+
+button,
+figure,
+svg {
+  font-family: var(--figure-font);
+}
+
+::selection {
+  background: var(--accent-light);
+}

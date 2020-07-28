@@ -1,0 +1,42 @@
+import svelte from "rollup-plugin-svelte-hot";
+import sveltePreprocess from "svelte-preprocess";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import svg from "rollup-plugin-svg";
+import postcss from "rollup-plugin-postcss";
+import json from "@rollup/plugin-json";
+import dsv from "@rollup/plugin-dsv";
+import execute from "rollup-plugin-execute";
+
+const preprocess = sveltePreprocess({
+  postcss: {
+    plugins: [require("autoprefixer")],
+  },
+});
+
+export default {
+  input: "src/components/App.svelte",
+  output: {
+    format: "cjs",
+    file: "public/.tmp/ssr.js",
+  },
+  plugins: [
+    svelte({
+      generate: "ssr",
+      preprocess,
+    }),
+    resolve({
+      browser: true,
+      dedupe: ["svelte"],
+    }),
+    commonjs(),
+    json(),
+    dsv(),
+    postcss({
+      extract: false,
+      modules: true,
+    }),
+    svg(),
+    execute("node pre-render.js"),
+  ],
+};
