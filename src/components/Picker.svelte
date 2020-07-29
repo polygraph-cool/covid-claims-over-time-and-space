@@ -40,7 +40,7 @@
     border-color: #000;
   }
   .active {
-    background: var(--accent-medium);
+    background: #63aa41;
     color: white;
   }
 </style>
