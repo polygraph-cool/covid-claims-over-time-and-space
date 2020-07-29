@@ -19,11 +19,11 @@
   let width = 100;
 
   const getDateString = timeFormat("%-m/%-d/%Y");
-  const formatDate = d =>
+  const formatDate = (d) =>
     [
       timeFormat("%-B %-d")(d),
       getOrdinal(timeFormat("%-d")(d)),
-      timeFormat(", %Y")(d)
+      timeFormat(", %Y")(d),
     ].join("");
 
   $: dateStrings = timeDay
@@ -36,7 +36,7 @@
     .domain([dateRange[0], dateRange[1]])
     .range([0, width]);
 
-  const onClickDate = date => {
+  const onClickDate = (date) => {
     const dateIndex = Math.min(
       dateStrings.length,
       timeDay.every(1).range(dateRange[0], date).length
@@ -45,7 +45,7 @@
     onSetDateIndex(dateIndex);
   };
 
-  const onClick = e => {
+  const onClick = (e) => {
     const bounds = timelineElement.getBoundingClientRect();
     const x = e.clientX - bounds.left;
     const date = timeDay.round(new Date(xScale.invert(x)));
@@ -53,7 +53,7 @@
   };
   const debouncedOnClick = throttle(onClick, 50);
 
-  const onMousedown = e => {
+  const onMousedown = (e) => {
     isDragging = true;
     debouncedOnClick(e);
 
@@ -61,7 +61,7 @@
       isDragging = false;
     });
   };
-  const onMousemove = e => {
+  const onMousemove = (e) => {
     if (!isDragging) return;
     debouncedOnClick(e);
   };
@@ -80,7 +80,9 @@
           {@html flags[countryAbbreviations[country]]}
         {/if}
       </div>
-      <div class="flag-tooltip">
+      <div
+        class="flag-tooltip"
+        class:flag-tooltip--left="{xScale(date) > width * 0.7}">
         {country}
         <div class="flag-tooltip-date">
           False claim posted on {formatDate(date)}
@@ -144,6 +146,7 @@
     /* top: 0.5em; */
     top: 0;
     left: 50%;
+    width: 12em;
     text-align: center;
     font-size: 0.9em;
     white-space: nowrap;
@@ -199,6 +202,7 @@
     border: 3px solid var(--gray-light);
     border-radius: 100%;
     transform: translate(-50%, -50%);
+    transition: border 0.2s linear;
     overflow: hidden;
   }
   .flag-tooltip {
@@ -244,7 +248,20 @@
     border-bottom-width: 0;
     transform-origin: 130% 80%;
     transform: translate(0%, -100%) rotate(-45deg);
-    transition: all 0.3s linear;
+    transition: border 0.2s linear;
+  }
+  .flag-tooltip--left {
+    right: auto;
+    left: -1.3em;
+    transform: translate(-100%, -50%);
+  }
+  .flag-tooltip--left:before {
+    left: auto;
+    right: -6px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 0;
+    border-top-width: 0;
   }
   .flag-tooltip-date {
     margin-top: 0;

@@ -13,14 +13,13 @@
   import { getOrdinal } from "./../utils";
 
   export let data = [];
-  export let title = "";
 
   const parseDate = timeParse("%-m/%-d/%Y");
-  const formatDate = d =>
+  const formatDate = (d) =>
     [
       timeFormat("%-B %-d")(d),
       getOrdinal(timeFormat("%-d")(d)),
-      timeFormat(", %Y")(d)
+      timeFormat(", %Y")(d),
     ].join("");
   const getDateString = timeFormat("%-m/%-d/%Y");
 
@@ -44,7 +43,7 @@
     if (!numberOfDays) return;
     currentDateIndex = (currentDateIndex + diff + numberOfDays) % numberOfDays;
   };
-  const onSetDateIndex = newIndex => {
+  const onSetDateIndex = (newIndex) => {
     currentDateIndex = newIndex;
     isPlaying = false;
   };
@@ -57,20 +56,20 @@
 
   $: timelineProgress = currentDateIndex / numberOfDays;
 
-  const xAccessor = d => parseDate(d["When did you see the claim?"]);
+  const xAccessor = (d) => parseDate(d["When did you see the claim?"]);
 
   const updateData = () => {
     if (!data || !data.length) return;
 
     let countriesByDay = {};
     let allCountries = new Set();
-    data.forEach(d => {
-      const countries = d["Countries"].split(",").map(d => d.trim());
+    data.forEach((d) => {
+      const countries = d["Countries"].split(",").map((d) => d.trim());
       allCountries.add(...countries);
 
       countriesByDay[d["When did you see the claim?"]] = [
         ...(countriesByDay[d["When did you see the claim?"]] || []),
-        ...countries
+        ...countries,
       ];
     });
     allCountries = [...allCountries];
@@ -86,15 +85,15 @@
     dateRange = [days[0], days.slice(-1)[0]];
 
     let runningCountries = {};
-    allCountries.forEach(country => {
+    allCountries.forEach((country) => {
       runningCountries[country] = 100;
     });
 
     timelineData = [];
-    dailyData = days.map(day => {
+    dailyData = days.map((day) => {
       runningCountries["date"] = formatDate(day);
 
-      Object.keys(runningCountries).forEach(country => {
+      Object.keys(runningCountries).forEach((country) => {
         if (country == "date") return;
         runningCountries[country] += 1;
       });
@@ -102,9 +101,9 @@
       const dateString = getDateString(day);
       const newCountries = countriesByDay[dateString] || [];
       let runningI = 0;
-      newCountries.forEach(country => {
+      newCountries.forEach((country) => {
         runningCountries[country] = 0;
-        if (!timelineData.filter(d => d[0] == country).length) {
+        if (!timelineData.filter((d) => d[0] == country).length) {
           timelineData.push([country, day, dateString, runningI]);
           runningI++;
         }
@@ -126,10 +125,6 @@
 </script>
 
 <div class="c">
-  <div class="title">
-    <h6>False claim:</h6>
-    <h3>{title}</h3>
-  </div>
   <Map data="{dailyData[currentDateIndex]}" startDate="{dateRange[0]}" />
   <div class="controls">
     <button on:click="{() => (isPlaying = !isPlaying)}">
@@ -151,24 +146,6 @@
     width: 100%;
     max-width: 50em;
     margin: 0 auto;
-  }
-
-  .title {
-    position: relative;
-    z-index: 20;
-  }
-
-  h3 {
-    font-weight: 800;
-    max-width: 30em;
-    margin: 0 auto -3em;
-    line-height: 1.3em;
-    height: 2em;
-    font-size: 1.6em;
-  }
-
-  h6 {
-    margin-bottom: 0;
   }
 
   .controls {
