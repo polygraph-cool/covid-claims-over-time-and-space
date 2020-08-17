@@ -81,6 +81,14 @@
     max-width: 30em;
   }
 
+  @media (max-width: 750px) {
+    .c {
+      padding-top: 1em;
+    }
+    h3 {
+      margin-bottom: -1em;
+    }
+  }
   @media (max-width: 514px) {
     h3 {
       height: auto;
