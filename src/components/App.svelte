@@ -50,6 +50,9 @@
   .c {
     padding: 3em 2em;
     text-align: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
   }
   h3 {
     position: relative;
@@ -76,5 +79,17 @@
     line-height: 1.46em;
     text-align: right;
     max-width: 30em;
+  }
+
+  @media (max-width: 514px) {
+    h3 {
+      height: auto;
+      margin: 0 auto 1em;
+      font-size: 1.3em;
+      line-height: 1.33em;
+    }
+    .source-wrapper {
+      margin-top: 5em;
+    }
   }
 </style>
