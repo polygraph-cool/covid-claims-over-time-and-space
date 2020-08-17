@@ -79,7 +79,7 @@
 
   $: rScale = scaleSqrt()
     .domain([0, 30])
-    .range([width * height * 0.0001, 0])
+    .range([width * height * 0.00006, 0])
     .clamp(true);
   const fadeScale = scaleLinear()
     .domain([0, 30])

@@ -19,11 +19,11 @@
   let width = 100;
 
   const getDateString = timeFormat("%-m/%-d/%Y");
-  const formatDate = (d) =>
+  const formatDate = d =>
     [
       timeFormat("%-B %-d")(d),
       getOrdinal(timeFormat("%-d")(d)),
-      timeFormat(", %Y")(d),
+      timeFormat(", %Y")(d)
     ].join("");
 
   $: dateStrings = timeDay
@@ -36,7 +36,7 @@
     .domain([dateRange[0], dateRange[1]])
     .range([0, width]);
 
-  const onClickDate = (date) => {
+  const onClickDate = date => {
     const dateIndex = Math.min(
       dateStrings.length,
       timeDay.every(1).range(dateRange[0], date).length
@@ -45,7 +45,7 @@
     onSetDateIndex(dateIndex);
   };
 
-  const onClick = (e) => {
+  const onClick = e => {
     const bounds = timelineElement.getBoundingClientRect();
     const x = e.clientX - bounds.left;
     const date = timeDay.round(new Date(xScale.invert(x)));
@@ -53,7 +53,7 @@
   };
   const debouncedOnClick = throttle(onClick, 50);
 
-  const onMousedown = (e) => {
+  const onMousedown = e => {
     isDragging = true;
     debouncedOnClick(e);
 
@@ -61,7 +61,7 @@
       isDragging = false;
     });
   };
-  const onMousemove = (e) => {
+  const onMousemove = e => {
     if (!isDragging) return;
     debouncedOnClick(e);
   };
@@ -140,6 +140,16 @@
   }
   .cursor--is-dragging {
     transition: transform 0.1s linear;
+  }
+  .cursor:after {
+    content: "";
+    position: absolute;
+    bottom: -0.19em;
+    height: 0.3em;
+    width: 0.3em;
+    border-radius: 100%;
+    background: var(--gray-dark);
+    transform: translate(-50%, -50%);
   }
   .date {
     position: absolute;

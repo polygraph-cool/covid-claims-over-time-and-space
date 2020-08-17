@@ -25,7 +25,7 @@
 
   const pickerOptions = claimTitles.map(([long, short], i) => ({
     id: i,
-    label: short,
+    label: short
   }));
 </script>
 
@@ -37,6 +37,13 @@
     <h3>{claimTitles[currentClaimIndex][0]}</h3>
   </div>
   <ClaimTimeline data="{claims[currentClaimIndex]}" />
+  <div class="source-wrapper">
+    <div class="source">
+      This visualization was inspired by CovidInfodemicEurope, a project
+      developed by Correctiv, AFP, Pagella Politica/Facta, Full Fact and
+      Maldita.es
+    </div>
+  </div>
 </div>
 
 <style>
@@ -56,5 +63,18 @@
   }
   h6 {
     margin-bottom: 0.5em;
+  }
+  .source-wrapper {
+    max-width: 50em;
+    margin: auto;
+  }
+  .source {
+    opacity: 0.5;
+    margin: 2em 0 0;
+    margin-left: auto;
+    font-size: 0.8em;
+    line-height: 1.46em;
+    text-align: right;
+    max-width: 30em;
   }
 </style>
